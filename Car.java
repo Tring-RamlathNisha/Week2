@@ -1,12 +1,12 @@
 public class Car extends Vehicle{
  
- private int numDoors;
+ private int numPers;
  //private boolean isConvertible;
  private String fuelType;
  
  public Car(String type ,String make, String model, int year, double rentalRate, int numPers, String fuelType) {
   super(type,make, model, year, rentalRate);
-  this.numDoors = numPers;
+  this.numPers = numPers;
   //this.isConvertible = isConvertible;
   this.fuelType = fuelType;
  }
