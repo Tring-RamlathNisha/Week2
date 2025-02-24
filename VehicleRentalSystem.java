@@ -26,7 +26,9 @@ public class VehicleRentalSystem {
    System.out.println("1. Rent a Vehicle");
    System.out.println("2. Return a Vehicle");
    System.out.println("3. Display Available and Rented Vehicles");
-   System.out.println("4. Exit");
+   System.out.println("4. Add vehicles");
+   System.out.println("5. Remove vehicles");
+   System.out.println("6. Exit");
    System.out.println();
    System.out.print("Enter your choice: ");
    
@@ -70,9 +72,9 @@ public class VehicleRentalSystem {
    
    case 2: {
     //Return a vehicle
-    System.out.println("Enter the vehicle make: ");
+    System.out.print("Enter the vehicle brand: ");
     String make = scanner.nextLine();
-    System.out.println("Enter the vehicle model: ");
+    System.out.print("Enter the vehicle model: ");
     String model = scanner.nextLine();
     
     Vehicle selectedVehicle = null;
@@ -95,12 +97,73 @@ public class VehicleRentalSystem {
    }
    
    case 3: {
+    System.out.println();
     //Display Rental Information
     rentalSystem.displayRentalInfo();  
     break;
    }
    
-   case 4: {
+    case 4: {
+    //Add vehicle 
+    System.out.print("Enter the vehicle type( Car / Bike ):");
+    String type = scanner.nextLine();
+    System.out.print("Enter the vehicle brand:");
+    String brand = scanner.nextLine();
+    System.out.print("Enter the vehicle model: ");
+    String model = scanner.nextLine();
+    System.out.print("Enter the year of establishment: ");
+    int year = scanner.nextInt();
+    System.out.print("Enter the rental rate: ");
+    double rate = scanner.nextDouble();
+
+    Vehicle veh;
+    if(type.equalsIgnoreCase("car")){
+      System.out.print("No. of accomodate persons: ");
+      int per=scanner.nextInt();
+      scanner.nextLine();
+      System.out.print("Fuel Type: ");
+      String fuel=scanner.nextLine();
+
+      veh=new Car(type,brand,model,year,rate,per,fuel);
+    }
+    else{
+      scanner.nextLine();
+      System.out.print("Enter bike type(Fuel-based / Electric): ");
+      String btype=scanner.nextLine();
+      veh=new Bike(type,brand,model,year,rate,btype);
+    }
+    rentalSystem.addVehicle(veh);
+    System.out.println("\nVehicle added successfully...");
+    break;
+   }
+
+   case 5: {
+    //Remove a vehicle
+    System.out.print("Enter the vehicle brand: ");
+    String make = scanner.nextLine();
+    System.out.print("Enter the vehicle model: ");
+    String model = scanner.nextLine();
+    
+    Vehicle selectedVehicle = null;
+    
+    //Checks the vehicles in rented vehicles
+    for(Vehicle v : rentalSystem.getAvailableVehicles()) {
+     if(v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
+      selectedVehicle = v;
+     }
+    }
+    if(selectedVehicle != null) {
+     //Add to the returned vehicles
+     rentalSystem.removeVehicle(selectedVehicle);
+     System.out.println("Vehicle removed successfully.");
+    }
+    else {
+     System.out.println("There is no vehicle in this brand and model.");
+    }
+    break;
+   }
+
+   case 6: {
     //Exit
      System.out.println("Thank you for using the Vehicle Rental System. Goodbye!");
      scanner.close();

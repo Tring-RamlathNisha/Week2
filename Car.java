@@ -14,7 +14,7 @@ public class Car extends Vehicle{
  @Override
  public void displayInfo() {
   super.displayInfo();
-  System.out.println("No. of accomodate persons: " + numDoors);
+  System.out.println("No. of accomodate persons: " + numPers);
   //System.out.println("Convertible: " + isConvertible);
   System.out.println("Fuel Type: " + fuelType);
  }

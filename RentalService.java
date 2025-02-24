@@ -26,20 +26,48 @@ public class RentalService {
  
  //to rent vehicle
  public void rentVehicle(Vehicle vehicle) {
-  if(availableVehicles.contains(vehicle)) {
-   availableVehicles.remove(vehicle);
-   rentedVehicles.add(vehicle);
-  }
+
+    try {
+        if(!availableVehicles.contains(vehicle)){
+            throw new Exception("Vehicle is not available");        
+        }
+        availableVehicles.remove(vehicle);
+        rentedVehicles.add(vehicle);    
+        
+    } catch (Exception e) {
+
+        System.out.println("Error renting vehicle:"+e.getMessage());
+    }
+  
  }
  
  //to return rented vehicle
  public void returnVehicle(Vehicle vehicle) {
-  if(rentedVehicles.contains(vehicle)) {
-   rentedVehicles.remove(vehicle);
-   availableVehicles.add(vehicle);
-  }
+    try {
+        if(!rentedVehicles.contains(vehicle)){
+            throw new Exception("Invalid return. Vehicle not rented.");
+        }
+        rentedVehicles.remove(vehicle);
+        availableVehicles.add(vehicle);
+    } catch (Exception e) {
+        System.out.println("Error returning vehicle:"+e.getMessage());
+    }
  }
  
+//to remove vehicle
+public void removeVehicle(Vehicle vehicle) {
+
+  try {
+    if(!availableVehicles.contains(vehicle)) {
+        throw new Exception("There is no vehicle available");
+  }
+     availableVehicles.remove(vehicle);
+  } catch (Exception e) {
+    System.out.println("Error removing vehicle:"+e.getMessage());
+  }
+  
+ }
+
  //To display available and rented vehicles
  public void displayRentalInfo() {
   System.out.println("Available vehicles: ");
@@ -57,9 +85,14 @@ public class RentalService {
  
  //To calculate total rental cost
  public double calculateRentalCost(Vehicle vehicle, int rentalDuration) {
-  double rentalRate = vehicle.getRentalRate();
-  double totalCost = rentalRate * rentalDuration;
-  return totalCost;
+try {
+    double rentalRate = vehicle.getRentalRate();
+     return rentalRate * rentalDuration;
+   
+} catch (Exception e) {
+    System.out.println("Error calculating rental cost: " + e.getMessage());
+            return 0;
+}
  }
 
 }
