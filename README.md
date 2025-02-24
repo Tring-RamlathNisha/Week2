@@ -1,4 +1,4 @@
 To compile:
-javac Vehicle.java car.java Bike.java RentalService.java VehicleRentalSystem.java
+javac file_name.java
 To run:
-java VehicleRentalSystem
+java file_name
